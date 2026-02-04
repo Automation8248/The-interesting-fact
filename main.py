@@ -47,7 +47,8 @@ def main():
     catbox_url = upload_to_catbox(file_path)
 
     if catbox_url:
-        seo_hashtags = "#trending #viral #foryou #explore #instagram #reels #video #tiktok #fyp"
+        seo_hashtags = "#DidYouKnow #Fact #Facts #AmazingFacts #InterestingFacts #TrueFacts #MindBlowingFacts #DailyFacts #RandomFacts #FunFacts #Knowledge #KnowledgeIsPower #LearnSomethingNew #Educational #Education #Info #Information #GeneralKnowledge #GK #ScienceFacts #TechFacts #PsychologyFacts #HistoryFacts #BusinessFacts #MoneyFacts #HealthFacts #LifeFacts #MotivationFacts #Truth #Reality #ReelsIndia #InstaReels #ViralReels #TrendingReels #ExplorePage #YoutubeShorts #ShortsVideo #ViralVideo"
+
 
         # --- टेलीग्राम फॉर्मेट (Direct Video, No Hash) ---
         tg_caption = (
@@ -57,7 +58,7 @@ def main():
             f".\n"
             f".\n"
             f".\n"
-            f"Daily Update"
+            f"{seo_hashtags}"
         )
 
         # --- वेबहुक फॉर्मेट (Caption + Hashtags) ---
