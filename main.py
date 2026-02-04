@@ -9,46 +9,47 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 VIDEO_DIR = "videos"
 
 def upload_to_catbox(file_path):
+    """वीडियो को Catbox.moe पर अपलोड करके डायरेक्ट लिंक देता है"""
     url = "https://catbox.moe/user/api.php"
     data = {"reqtype": "fileupload"}
     try:
         with open(file_path, "rb") as f:
             files = {"fileToUpload": f}
-            response = requests.post(url, data=data, files=files, timeout=30)
+            response = requests.post(url, data=data, files=files, timeout=40)
         if response.status_code == 200:
             return response.text
         return None
     except Exception as e:
-        print(f"Catbox Upload Error: {e}")
+        print(f"Catbox Upload Failed: {e}")
         return None
 
 def main():
+    # 1. फोल्डर चेक करना
     if not os.path.exists(VIDEO_DIR):
-        print("Folder nahi mila")
+        print(f"Error: '{VIDEO_DIR}' folder nahi mila.")
         return
 
-    # Files ki list (Alphabetical order)
-    video_files = sorted([f for f in os.listdir(VIDEO_DIR) if f.lower().endswith(('.mp4', '.mkv', '.mov'))])
+    # 2. केवल वीडियो फाइल्स को ही चुनना (Filter logic)
+    video_files = sorted([f for f in os.listdir(VIDEO_DIR) if f.lower().endswith(('.mp4', '.mkv', '.mov', '.avi'))])
     
     if not video_files:
-        print("Koi video bacha nahi hai")
+        print("Folder mein koi video file (.mp4, .mkv etc) nahi mili.")
         return
 
-    # Pehli video file (Content)
+    # पहली वीडियो फाइल को प्रोसेस के लिए उठाना
     video_to_process = video_files[0]
     file_path = os.path.join(VIDEO_DIR, video_to_process)
     
-    # Title extraction
+    # फाइल के नाम से टाइटल बनाना (एक्सटेंशन हटाकर)
     clean_title = os.path.splitext(video_to_process)[0]
 
-    # Catbox Video Link generate karna
+    # 3. Catbox पर अपलोड करना
     catbox_url = upload_to_catbox(file_path)
 
     if catbox_url:
-        # SEO Hashtags
         seo_hashtags = "#trending #viral #foryou #explore #instagram #reels #video #tiktok #fyp"
 
-        # --- TELEGRAM FORMAT (Direct Video File, No hashtags) ---
+        # --- टेलीग्राम फॉर्मेट (Direct Video, No Hash) ---
         tg_caption = (
             f"New video post\n"
             f".\n"
@@ -59,45 +60,43 @@ def main():
             f"Daily Update"
         )
 
-        # --- WEBHOOK CAPTION (Caption + Hashtags) ---
-        # Jaisa aapne kaha: Ismein caption aur # dono rahenge
-        full_webhook_caption = f"New video post\n{seo_hashtags}"
+        # --- वेबहुक फॉर्मेट (Caption + Hashtags) ---
+        webhook_caption = f"New video post\n{seo_hashtags}"
 
-        # 1. Telegram par direct video file bhejna
+        # 4. टेलीग्राम पर भेजना (Direct Video File)
         if BOT_TOKEN and CHAT_ID:
             try:
                 tg_url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendVideo"
                 with open(file_path, "rb") as video:
-                    requests.post(tg_url, files={"video": video}, data={"chat_id": CHAT_ID, "caption": tg_caption}, timeout=30)
-                print("Telegram send success.")
+                    requests.post(tg_url, files={"video": video}, data={"chat_id": CHAT_ID, "caption": tg_caption}, timeout=40)
+                print("Telegram: Video file successfully sent.")
             except Exception as tg_err:
-                print(f"Telegram Failed: {tg_err}")
+                print(f"Telegram Error: {tg_err}")
 
-        # 2. Webhook for Make.com (URL = Catbox Link)
+        # 5. वेबहुक पर भेजना (Make.com Logic)
         if WEBHOOK_URL:
             try:
-                # 'url' field mein catbox video link jayega
-                # 'caption' field mein text aur # dono jayenge
+                # url = Catbox Link, caption = Text + Hashtags
                 payload = {
                     "url": catbox_url, 
                     "title": clean_title, 
-                    "caption": full_webhook_caption
+                    "caption": webhook_caption
                 }
-                requests.post(WEBHOOK_URL, json=payload, timeout=10)
-                print("Webhook send success.")
+                requests.post(WEBHOOK_URL, json=payload, timeout=15)
+                print("Webhook: Success.")
             except Exception as web_err:
                 print(f"Webhook Failed: {web_err}")
         else:
-            print("Warning: Webhook URL missing.")
+            print("Warning: Webhook URL missing in Secrets.")
 
-        # 3. Sirf wahi file delete karna jo use hui hai
+        # 6. केवल इस्तेमाल हुई फाइल को डिलीट करना
         if os.path.exists(file_path):
             os.remove(file_path)
-            print(f"File {video_to_process} deleted.")
+            print(f"Cleanup: {video_to_process} deleted.")
 
-        print(f"Workflow Complete! Link used: {catbox_url}")
+        print(f"Workflow Complete! Processed: {catbox_url}")
     else:
-        print("Catbox Upload Failed.")
+        print("Catbox Upload Failed. Skipping post.")
 
 if __name__ == "__main__":
     main()
