@@ -1,8 +1,8 @@
-name: Daily Video Post
+name: Daily Video Automation
 
 on:
   schedule:
-    - cron: '0 5 * * *' 
+    - cron: '0 5 * * *'
   workflow_dispatch:
 
 jobs:
@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-        with:
-          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -29,11 +27,10 @@ jobs:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: python main.py
 
-      - name: Save Deletion (Only File, Not Folder)
+      - name: Save Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # -u flag केवल उन फाइल्स को अपडेट/रिमूव करेगा जो डिलीट हुई हैं
           git add -u
-          git commit -m "System: Removed only the processed video file" || exit 0
+          git commit -m "System: Processed video removed" || exit 0
           git push
