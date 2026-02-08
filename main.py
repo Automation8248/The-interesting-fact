@@ -47,7 +47,7 @@ def main():
     catbox_url = upload_to_catbox(file_path)
 
     if catbox_url:
-        seo_hashtags = "#DidYouKnow #Fact #Facts #AmazingFacts #InterestingFacts #TrueFacts #MindBlowingFacts #DailyFacts #RandomFacts #FunFacts #Knowledge #KnowledgeIsPower #LearnSomethingNew #Educational #Education #Info #Information #GeneralKnowledge #GK #ScienceFacts #TechFacts #PsychologyFacts #HistoryFacts #BusinessFacts #MoneyFacts #HealthFacts #LifeFacts #MotivationFacts #Truth #Reality #ReelsIndia #InstaReels #ViralReels #TrendingReels #ExplorePage #YoutubeShorts #ShortsVideo #ViralVideo"
+        seo_hashtags = "#DidYouKnow #shorts #short #Fact #Facts #AmazingFacts #InterestingFacts #TrueFacts #MindBlowingFacts #DailyFacts #RandomFacts #FunFacts #Knowledge #KnowledgeIsPower #LearnSomethingNew #Educational #Education #Info #Information #GeneralKnowledge #GK #ScienceFacts #TechFacts #PsychologyFacts #HistoryFacts #BusinessFacts #MoneyFacts #HealthFacts #LifeFacts #MotivationFacts #Truth #Reality #ReelsIndia #InstaReels #ViralReels #TrendingReels #ExplorePage #YoutubeShorts #ShortsVideo #ViralVideo"
 
 
         # --- टेलीग्राम फॉर्मेट (Direct Video, No Hash) ---
