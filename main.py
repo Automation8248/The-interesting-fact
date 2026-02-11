@@ -77,6 +77,11 @@ def main():
         # 5. वेबहुक पर भेजना (Make.com Logic)
         if WEBHOOK_URL:
             try:
+                # --- LOGIC ADDED: Caption ko yahan define kar diya ---
+                # Isse ye pakka ho jayega ki hashtags sath mein ja rahe hain
+                webhook_caption = f"New video post\n{seo_hashtags}"
+                # -----------------------------------------------------
+
                 # url = Catbox Link, caption = Text + Hashtags
                 payload = {
                     "url": catbox_url, 
