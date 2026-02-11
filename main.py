@@ -79,7 +79,8 @@ def main():
             try:
                 # --- LOGIC ADDED: Caption ko yahan define kar diya ---
                 # Isse ye pakka ho jayega ki hashtags sath mein ja rahe hain
-                webhook_caption = f"New video post\n{seo_hashtags}"
+                short_tags = " ".join(seo_hashtags.split()[:5])
+                webhook_caption = f"New video post\n{short_tags}"
                 # -----------------------------------------------------
 
                 # url = Catbox Link, caption = Text + Hashtags
