@@ -12,7 +12,7 @@ TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 
 # Yahan maine image se dekh kar aapka exact Repo Name daal diya hai
-GITHUB_REPO = "Automation8248/offernix-page-" 
+GITHUB_REPO = "Automation8248/The-interesting-fact"
 BRANCH_NAME = "main"
 
 # --- DATA GRID (Pre-saved Titles & Captions) ---
