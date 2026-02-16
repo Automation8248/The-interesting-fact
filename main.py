@@ -45,7 +45,7 @@ INSTA_HASHTAGS = """
 .
 .
 "#Affiliate #BestDeals #SmartGadgets #TopProduct #Shopping"
-
+"""
 
 # --- HELPER FUNCTIONS ---
 
