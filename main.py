@@ -257,7 +257,7 @@ FIXED_HASHTAGS = """
 .
 .
 .
-#facts #science #didyouknow #mindblowing #interestingfacts #amazingfacts #sciencefacts #knowledge #learnsomethingnew #education #howthingswork #explained #universe #spacefacts #psychologyfacts #brainfacts #dailyfacts #viral #trending #fyp #explorepage #reels #shorts #youtubeshorts #shortvideo #viralshorts #trendingreels #ytshorts #educationalvideo #factvideo """
+#science #sciencefacts #sciencefact #didyouknow #mindblowing #facts #amazingfacts #incrediblefacts #factoftheday #scienceisfun #scienceknowledge #spacefacts #physics #chemistry #biology #universe #nasa #technology #innovation #futuretech #viral #trending #explorepage #fyp #foryou #foryoupage #reelsviral #viralcontent #knowledge #learnsomethingnew """
 # Isse AFFILIATE_HASHTAGS se badal kar INSTA_HASHTAGS kar diya hai
 INSTA_HASHTAGS = """
 .
